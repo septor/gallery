@@ -13,7 +13,8 @@
             <div class="wrap">
                 <!-- The below is generated code. It is ugly. You're welcome! -->
                 <?php
-                foreach(glob("images/*.{jpg,gif,png,jpeg,svg}", GLOB_BRACE) as $file) {
+                $formats = file_get_contents('formats.txt');
+                foreach(glob("images/*.{'.$formats.'}", GLOB_BRACE) as $file) {
                     echo '<div class="box">
                     <div class="boxInner">
                         <a href="'.$file.'"><img src="./'.$file.'" /></a>
