@@ -1,1 +1,1 @@
-jpg,gif,png,jpeg,svg
+jpg,gif,png,jpeg,svg,webp
