@@ -1,15 +1,16 @@
 #images {
   line-height: 0;
   -webkit-column-count: 5;
-  -webkit-column-gap:   0px;
+  -webkit-column-gap:   2px;
   -moz-column-count:    5;
-  -moz-column-gap:      0px;
+  -moz-column-gap:      2px;
   column-count:         5;
-  column-gap:           0px;  
+  column-gap:           2px;  
 }
 #images img {
   width: 100% !important;
   height: auto !important;
+  border: 1px solid #000;
 }
 @media (max-width: 1200px) {
   #images {
