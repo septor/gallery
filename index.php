@@ -1,4 +1,7 @@
-<!-- WARNING: IF YOU'RE USING THIS I APOLOGIZE -->
+<!--
+WARNING: IF YOU'RE USING THIS I APOLOGIZE.
+ALSO: I CLAIM NO CREDIT NOR COPYRIGHT FOR ANY OF THE IMAGES DISPLAYED HERE.
+-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,20 +12,18 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <section class="no-touch">
-            <div class="wrap">
-                <!-- The below is generated code. It is ugly. You're welcome! -->
-                <?php
-                $formats = file_get_contents('formats.txt');
-                foreach(glob("images/*.{'.$formats.'}", GLOB_BRACE) as $file) {
-                    echo '<div class="box">
-                    <div class="boxInner">
-                        <a href="'.$file.'"><img src="./'.$file.'" /></a>
-                    </div>
-                </div>';
-                }
-                ?>
-            </div>
+        <section id="images">
+            <!-- The below is generated code. It is ugly. You're welcome! -->
+            <?php
+            $formats = file_get_contents('formats.txt');
+            foreach(glob("images/*.{".$formats."}", GLOB_BRACE) as $file) {
+                echo '<div class="box">
+                <div class="boxInner">
+                    <a href="'.$file.'"><img src="./'.$file.'" /></a>
+                </div>
+            </div>';
+            }
+            ?>
         </section>
     </body>
 </html>
