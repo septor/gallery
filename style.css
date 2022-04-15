@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+body {
+	font-family: 'JetBrains Mono', monospace;
+  background-color: #222;
+}
+
+a {
+  color: rgb(178, 128, 197);
+  font-weight: bold;
+}
+
 #images {
   line-height: 0;
   -webkit-column-count: 5;
@@ -12,6 +24,20 @@
   height: auto !important;
   border: 1px solid #000;
 }
+
+#menu div.categories {
+  overflow: auto;
+  white-space: nowrap;
+  text-align: center;
+}
+
+#menu div.categories a {
+  display: inline-block;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
 @media (max-width: 1200px) {
   #images {
   -moz-column-count:    4;

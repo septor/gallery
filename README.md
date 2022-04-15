@@ -9,3 +9,7 @@ Enjoy, or don't.
 ## Image extensions
 
 You can decide which extensions to use by editing `formats.txt` split your extentions with a `,`. Submit a pull request if you find any that matter that should be included.
+
+## Categories
+
+Category support exists. Just create subdirectories inside the `/images` directory. They will auto display. The main page still displays every image inside the `/images` directory.
