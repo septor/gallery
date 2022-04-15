@@ -23,6 +23,7 @@ a {
   width: 100% !important;
   height: auto !important;
   border: 1px solid #000;
+  background-color: #fff;
 }
 
 #menu div.categories {
