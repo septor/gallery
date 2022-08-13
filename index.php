@@ -17,8 +17,10 @@ ALSO: I CLAIM NO CREDIT NOR COPYRIGHT FOR ANY OF THE IMAGES DISPLAYED HERE.
         <div class="categories">';
         echo '<a href="./">HOME</a>';
         foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
+            
             $category = str_replace("images/", "", $category);
-            echo '<a href="./?cat='.$category.'">'.strtoupper($category).'</a>';
+            $count = count(glob("images/".$category."/*"));
+            echo '<a href="./'.$category.'">'.strtoupper($category).' (' . $count . ')</a>';
         }
         echo '</div>
         </section>';
