@@ -70,5 +70,6 @@ ALSO: I CLAIM NO CREDIT NOR COPYRIGHT FOR ANY OF THE IMAGES DISPLAYED HERE.
             }
             ?>
         </section>
+        <script src="sticky.js"></script>
     </body>
 </html>

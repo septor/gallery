@@ -25,7 +25,7 @@ RewriteEngine On
 RewriteRule ^gallery/([^/\.]+)/?$ /gallery/index.php?cat=$1 [L]
 ```
 
-Modify it to your liking. I have not tested outside my set up, but it stands to reason removing the `gallery` bit from above will work if you are using this scipt inside your root directory.
+Modify it to your liking. I have not tested outside my set up, but it stands to reason removing the `gallery` bit from above will work if you are using this script inside your root directory.
 
 If you do not want to do URL rewriting, modify line 23 from:
 

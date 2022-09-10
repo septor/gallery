@@ -6,8 +6,36 @@ body {
 }
 
 a {
-  color: rgb(178, 128, 197);
+  color: #ffc107;
   font-weight: bold;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00bcd4 #222;
+}
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #222;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #00bcd4;
+  border-radius: 2px;
+  border: 3px solid #222;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + #images {
+  padding-top: 60px;
 }
 
 #images {
@@ -24,6 +52,11 @@ a {
   height: auto !important;
   border: 1px solid #000;
   background-color: #fff;
+}
+
+#menu {
+  background-color: #222;
+  overflow: hidden;
 }
 
 #menu div.categories {
