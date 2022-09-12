@@ -4,12 +4,10 @@ body {
 	font-family: 'JetBrains Mono', monospace;
   background-color: #222;
 }
-
 a {
   color: #ffc107;
   font-weight: bold;
 }
-
 * {
   scrollbar-width: thin;
   scrollbar-color: #00bcd4 #222;
@@ -17,11 +15,9 @@ a {
 *::-webkit-scrollbar {
   width: 12px;
 }
-
 *::-webkit-scrollbar-track {
   background: #222;
 }
-
 *::-webkit-scrollbar-thumb {
   background-color: #00bcd4;
   border-radius: 2px;
@@ -32,10 +28,6 @@ a {
   position: fixed;
   top: 0;
   width: 100%;
-}
-
-.sticky + #images {
-  padding-top: 60px;
 }
 
 #images {
@@ -56,15 +48,12 @@ a {
 
 #menu {
   background-color: #222;
-  overflow: hidden;
 }
-
 #menu div.categories {
   overflow: auto;
   white-space: nowrap;
   text-align: center;
 }
-
 #menu div.categories a {
   display: inline-block;
   text-align: center;
