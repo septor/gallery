@@ -5,6 +5,10 @@ ALSO: I CLAIM NO CREDIT NOR COPYRIGHT FOR ANY OF THE IMAGES DISPLAYED HERE.
 <?php
 $use_rewrite = true;
 $show_category_counts = true;
+
+function displayImage($file) {
+    echo '<a href="'.$file.'"><img src="./'.$file.'" /></a>';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +42,7 @@ $show_category_counts = true;
                 // Pull the images from the directory and display them, if the directory exists
                 if(is_dir("images/".$_GET['cat'])) {
                     foreach(glob("images/".$_GET['cat']."/*.{".$formats."}", GLOB_BRACE) as $file) {
-                        echo '<a href="'.$file.'"><img src="./'.$file.'" /></a>';
+                        displayImage($file);
                     }
                 } else {
                     // if the directory doesn't exist, send them home.
@@ -47,13 +51,13 @@ $show_category_counts = true;
             } else {
                 // First list all the images not in a directory.
                 foreach(glob("images/*.{".$formats."}", GLOB_BRACE) as $file) {
-                    echo '<a href="'.$file.'"><img src="./'.$file.'" /></a>';
+                    displayImage($file);
                 }
 
                 // Now cycle through all the directories and display all those images.
                 foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
                     foreach(glob($category."/*.{".$formats."}", GLOB_BRACE) as $file) {
-                        echo '<a href="'.$file.'"><img src="./'.$file.'" /></a>';
+                        displayImage($file);
                     }
                 }
             }
