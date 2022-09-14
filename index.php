@@ -10,6 +10,7 @@ $useRewrite = true;
 $showCounts = true;
 $isMobile = $detect->isMobile();
 $css = $isMobile ? 'mobile.css' : 'desktop.css';
+$break = $isMobile ? '' : '<br>';
 
 $totalImages = 0;
 foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
@@ -27,24 +28,28 @@ function displayImage($file) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Gallery</title>
+        <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="<?= $css ?>">
     </head>
     <body>
         <?php
-        echo (!$isMobile ? '<div id="content">' : '').'
+        echo '<div id="content">
             <section id="menu">
             <div class="categories">';
-            echo '<a href="./">('.($showCounts ? '<span>' . str_pad($totalImages, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').'HOME)</a>'.($isMobile ? '' : '<br>');
+
+            echo '<a href="./">('.($showCounts ? '<span>' . str_pad($totalImages, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').'HOME)</a>'.$break;
+
             foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
                 
                 $category = str_replace("images/", "", $category);
                 $count = count(glob("images/".$category."/*"));
-                echo '<a href="./'.($useRewrite ? $category : '?cat='.$category).'">('.($showCounts ? '<span>' . str_pad($count, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').strtoupper($category).')</a>'.($isMobile ? '' : '<br>');
+                echo '<a href="./'.($useRewrite ? $category : '?cat='.$category).'">('.($showCounts ? '<span>' . str_pad($count, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').strtoupper($category).')</a>'.$break;
             }
+
             echo '</div>
             </section>';
             ?>
-            <?php !$isMobile ? '<section id="grid">' : ''; ?>
+            <section id="grid">
                 <section id="images">
                     <!-- The below is generated code. It is ugly. You're welcome! -->
                     <?php
@@ -73,8 +78,8 @@ function displayImage($file) {
                     }
                     ?>
                 </section>
-                <?php !$isMobile ? '</section>
-                </div>' : ''; ?>
-        <?php echo ($isMobile ? '' : '<script src="sticky.js"></script>'); ?>
+            </section>
+        </div>
+        <script src="sticky.js"></script>
     </body>
 </html>
