@@ -2,18 +2,7 @@
 WARNING: IF YOU'RE USING THIS I APOLOGIZE.
 ALSO: I CLAIM NO CREDIT NOR COPYRIGHT FOR ANY OF THE IMAGES DISPLAYED HERE.
 -->
-<?php
-require_once 'utils/core.php';
-
-$totalImages = 0;
-foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
-    $totalImages += count(glob($category."/*.{".$fileFormats."}", GLOB_BRACE));
-}
-
-function displayImage($file) {
-    echo '<a href="'.$file.'"><img src="./'.$file.'" /></a>';
-}
-?>
+<?php require_once 'utils/core.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,13 +19,13 @@ function displayImage($file) {
             <section id="menu">
             <div class="categories">';
 
-            echo '<a href="./">('.($showCounts ? '<span>' . str_pad($totalImages, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').'HOME)</a>'.$break;
+            echo '<a href="./">('.($showCounts ? '<span>' . padIt(totalImages($fileFormats)) . '</span><b>.</b> ' : '').'HOME)</a>'.$break;
 
             foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
                 
+                $count = count(glob($category."/*.{".$fileFormats."}", GLOB_BRACE));
                 $category = str_replace("images/", "", $category);
-                $count = count(glob("images/".$category."/*.{".$fileFormats."}", GLOB_BRACE));
-                echo '<a href="./'.($useRewrite ? $category : '?cat='.$category).'">('.($showCounts ? '<span>' . str_pad($count, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').strtoupper($category).')</a>'.$break;
+                echo '<a href="./'.($useRewrite ? $category : '?cat='.$category).'">('.($showCounts ? '<span>' . padIt($count) . '</span><b>.</b> ' : '').strtoupper($category).')</a>'.$break;
             }
 
             echo '</div>
