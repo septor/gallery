@@ -3,9 +3,13 @@ WARNING: IF YOU'RE USING THIS I APOLOGIZE.
 ALSO: I CLAIM NO CREDIT NOR COPYRIGHT FOR ANY OF THE IMAGES DISPLAYED HERE.
 -->
 <?php
+require_once 'mobile_detect.php';
+$detect = new Mobile_Detect;
 $formats = file_get_contents('formats.txt');
 $useRewrite = true;
 $showCounts = true;
+$isMobile = $detect->isMobile();
+$css = $isMobile ? 'mobile.css' : 'desktop.css';
 
 $totalImages = 0;
 foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
@@ -23,24 +27,24 @@ function displayImage($file) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Gallery</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="<?= $css ?>">
     </head>
     <body>
         <?php
-        echo '<div id="content">
+        echo (!$isMobile ? '<div id="content">' : '').'
             <section id="menu">
             <div class="categories">';
-            echo '<a href="./">'.($showCounts ? '<span>' . str_pad($totalImages, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').'HOME</a><br>';
+            echo '<a href="./">('.($showCounts ? '<span>' . str_pad($totalImages, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').'HOME)</a>'.($isMobile ? '' : '<br>');
             foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
                 
                 $category = str_replace("images/", "", $category);
                 $count = count(glob("images/".$category."/*"));
-                echo '<a href="./'.($useRewrite ? $category : '?cat='.$category).'">'.($showCounts ? '<span>' . str_pad($count, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').strtoupper($category).'</a><br>';
+                echo '<a href="./'.($useRewrite ? $category : '?cat='.$category).'">('.($showCounts ? '<span>' . str_pad($count, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').strtoupper($category).')</a>'.($isMobile ? '' : '<br>');
             }
             echo '</div>
             </section>';
             ?>
-            <section id="grid">
+            <?php !$isMobile ? '<section id="grid">' : ''; ?>
                 <section id="images">
                     <!-- The below is generated code. It is ugly. You're welcome! -->
                     <?php
@@ -69,8 +73,8 @@ function displayImage($file) {
                     }
                     ?>
                 </section>
-            </section>
-        </div>
-        <!-- <script src="sticky.js"></script> -->
+                <?php !$isMobile ? '</section>
+                </div>' : ''; ?>
+        <?php echo ($isMobile ? '' : '<script src="sticky.js"></script>'); ?>
     </body>
 </html>
