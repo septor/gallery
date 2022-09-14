@@ -16,7 +16,7 @@ Category support exists. Just create subdirectories inside the `/images` directo
 
 ### Image count
 
-You can hide the number of images in a category on the menu line by changing line 7 (`$show_category_counts`) of `index.php` to `false`.
+You can hide the number of images in a category (and total) in the menu by changing line 7 (`$showCounts`) of `index.php` to `false`.
 
 ## URL Rewrite Support
 
@@ -31,4 +31,4 @@ RewriteRule ^gallery/([^/\.]+)/?$ /gallery/index.php?cat=$1 [L]
 
 Modify it to your liking. I have not tested outside my set up, but it stands to reason removing the `gallery` bit from above will work if you are using this script inside your root directory.
 
-If you do not want to use URL rewriting, change `$use_rewrite` on line 6 of `index.php` to `false`.
+If you do not want to use URL rewriting, change `$useRewrite` on line 6 of `index.php` to `false`.

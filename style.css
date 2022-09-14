@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
 html {
   font-size: 12px;
 }
-
 body {
 	font-family: 'JetBrains Mono', monospace;
   background-color: #222;
@@ -11,6 +15,9 @@ body {
 a {
   color: #ffc107;
   font-weight: bold;
+}
+a:hover {
+  color: #00bcd4;
 }
 * {
   scrollbar-width: thin;
@@ -34,6 +41,19 @@ a {
   width: 100%;
 }
 
+#content {
+  height: 100%;
+}
+
+#grid {
+  float: left;
+  width: 88%;
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 1px;
+}
+
 #images {
   line-height: 0;
   -webkit-column-count: 5;
@@ -51,12 +71,17 @@ a {
 }
 
 #menu {
+  float: left;
+  width: 12%;
   background-color: #222;
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 0.4em;
 }
 #menu div.categories {
   overflow: auto;
   white-space: nowrap;
-  text-align: center;
 }
 #menu div.categories a {
   display: inline-block;

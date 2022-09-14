@@ -3,8 +3,14 @@ WARNING: IF YOU'RE USING THIS I APOLOGIZE.
 ALSO: I CLAIM NO CREDIT NOR COPYRIGHT FOR ANY OF THE IMAGES DISPLAYED HERE.
 -->
 <?php
-$use_rewrite = true;
-$show_category_counts = true;
+$formats = file_get_contents('formats.txt');
+$useRewrite = true;
+$showCounts = true;
+
+$totalImages = 0;
+foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
+    $totalImages += count(glob($category."/*"));
+}
 
 function displayImage($file) {
     echo '<a href="'.$file.'"><img src="./'.$file.'" /></a>';
@@ -21,48 +27,50 @@ function displayImage($file) {
     </head>
     <body>
         <?php
-        echo '<section id="menu">
-        <div class="categories">';
-        echo '<a href="./">HOME</a>';
-        foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
-            
-            $category = str_replace("images/", "", $category);
-            $count = count(glob("images/".$category."/*"));
-            echo '<a href="./'.($use_rewrite ? $category : '?cat='.$category).'">'.strtoupper($category).($show_category_counts ? ' (' . $count . ')' : '').'</a>';
-        }
-        echo '</div>
-        </section>';
-        ?>
-        <section id="images">
-            <!-- The below is generated code. It is ugly. You're welcome! -->
-            <?php
-            $formats = file_get_contents('formats.txt');
-
-            if(isset($_GET['cat'])) {
-                // Pull the images from the directory and display them, if the directory exists
-                if(is_dir("images/".$_GET['cat'])) {
-                    foreach(glob("images/".$_GET['cat']."/*.{".$formats."}", GLOB_BRACE) as $file) {
-                        displayImage($file);
-                    }
-                } else {
-                    // if the directory doesn't exist, send them home.
-                    header("location: ./");
-                }
-            } else {
-                // First list all the images not in a directory.
-                foreach(glob("images/*.{".$formats."}", GLOB_BRACE) as $file) {
-                    displayImage($file);
-                }
-
-                // Now cycle through all the directories and display all those images.
-                foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
-                    foreach(glob($category."/*.{".$formats."}", GLOB_BRACE) as $file) {
-                        displayImage($file);
-                    }
-                }
+        echo '<div id="content">
+            <section id="menu">
+            <div class="categories">';
+            echo '<a href="./">HOME'.($showCounts ? ' ('.$totalImages.') ' : '').'</a><br>';
+            foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
+                
+                $category = str_replace("images/", "", $category);
+                $count = count(glob("images/".$category."/*"));
+                echo '<a href="./'.($useRewrite ? $category : '?cat='.$category).'">'.strtoupper($category).($showCounts ? ' (' . $count . ')' : '').'</a><br>';
             }
+            echo '</div>
+            </section>';
             ?>
-        </section>
-        <script src="sticky.js"></script>
+            <section id="grid">
+                <section id="images">
+                    <!-- The below is generated code. It is ugly. You're welcome! -->
+                    <?php
+                    if(isset($_GET['cat'])) {
+                        // Pull the images from the directory and display them, if the directory exists
+                        if(is_dir("images/".$_GET['cat'])) {
+                            foreach(glob("images/".$_GET['cat']."/*.{".$formats."}", GLOB_BRACE) as $file) {
+                                displayImage($file);
+                            }
+                        } else {
+                            // if the directory doesn't exist, send them home.
+                            header("location: ./");
+                        }
+                    } else {
+                        // First list all the images not in a directory.
+                        foreach(glob("images/*.{".$formats."}", GLOB_BRACE) as $file) {
+                            displayImage($file);
+                        }
+
+                        // Now cycle through all the directories and display all those images.
+                        foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
+                            foreach(glob($category."/*.{".$formats."}", GLOB_BRACE) as $file) {
+                                displayImage($file);
+                            }
+                        }
+                    }
+                    ?>
+                </section>
+            </section>
+        </div>
+        <!-- <script src="sticky.js"></script> -->
     </body>
 </html>
