@@ -30,12 +30,12 @@ function displayImage($file) {
         echo '<div id="content">
             <section id="menu">
             <div class="categories">';
-            echo '<a href="./">HOME'.($showCounts ? ' ('.$totalImages.') ' : '').'</a><br>';
+            echo '<a href="./">'.($showCounts ? '<span>' . str_pad($totalImages, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').'HOME</a><br>';
             foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
                 
                 $category = str_replace("images/", "", $category);
                 $count = count(glob("images/".$category."/*"));
-                echo '<a href="./'.($useRewrite ? $category : '?cat='.$category).'">'.strtoupper($category).($showCounts ? ' (' . $count . ')' : '').'</a><br>';
+                echo '<a href="./'.($useRewrite ? $category : '?cat='.$category).'">'.($showCounts ? '<span>' . str_pad($count, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').strtoupper($category).'</a><br>';
             }
             echo '</div>
             </section>';
