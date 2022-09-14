@@ -3,18 +3,11 @@ WARNING: IF YOU'RE USING THIS I APOLOGIZE.
 ALSO: I CLAIM NO CREDIT NOR COPYRIGHT FOR ANY OF THE IMAGES DISPLAYED HERE.
 -->
 <?php
-require_once 'mobile_detect.php';
-$detect = new Mobile_Detect;
-$formats = file_get_contents('formats.txt');
-$useRewrite = true;
-$showCounts = true;
-$isMobile = $detect->isMobile();
-$css = $isMobile ? 'mobile.css' : 'desktop.css';
-$break = $isMobile ? '' : '<br>';
+require_once 'utils/core.php';
 
 $totalImages = 0;
 foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
-    $totalImages += count(glob($category."/*"));
+    $totalImages += count(glob($category."/*.{".$fileFormats."}", GLOB_BRACE));
 }
 
 function displayImage($file) {
@@ -28,8 +21,8 @@ function displayImage($file) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Gallery</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="<?= $css ?>">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/<?= $css ?>">
     </head>
     <body>
         <?php
@@ -42,7 +35,7 @@ function displayImage($file) {
             foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
                 
                 $category = str_replace("images/", "", $category);
-                $count = count(glob("images/".$category."/*"));
+                $count = count(glob("images/".$category."/*.{".$fileFormats."}", GLOB_BRACE));
                 echo '<a href="./'.($useRewrite ? $category : '?cat='.$category).'">('.($showCounts ? '<span>' . str_pad($count, 3, "0", STR_PAD_LEFT) . '</span><b>.</b> ' : '').strtoupper($category).')</a>'.$break;
             }
 
@@ -56,7 +49,7 @@ function displayImage($file) {
                     if(isset($_GET['cat'])) {
                         // Pull the images from the directory and display them, if the directory exists
                         if(is_dir("images/".$_GET['cat'])) {
-                            foreach(glob("images/".$_GET['cat']."/*.{".$formats."}", GLOB_BRACE) as $file) {
+                            foreach(glob("images/".$_GET['cat']."/*.{".$fileFormats."}", GLOB_BRACE) as $file) {
                                 displayImage($file);
                             }
                         } else {
@@ -65,13 +58,13 @@ function displayImage($file) {
                         }
                     } else {
                         // First list all the images not in a directory.
-                        foreach(glob("images/*.{".$formats."}", GLOB_BRACE) as $file) {
+                        foreach(glob("images/*.{".$fileFormats."}", GLOB_BRACE) as $file) {
                             displayImage($file);
                         }
 
                         // Now cycle through all the directories and display all those images.
                         foreach(glob("images/*", GLOB_ONLYDIR) as $category) {
-                            foreach(glob($category."/*.{".$formats."}", GLOB_BRACE) as $file) {
+                            foreach(glob($category."/*.{".$fileFormats."}", GLOB_BRACE) as $file) {
                                 displayImage($file);
                             }
                         }
@@ -80,6 +73,6 @@ function displayImage($file) {
                 </section>
             </section>
         </div>
-        <script src="sticky.js"></script>
+        <script src="utils/sticky.js"></script>
     </body>
 </html>
