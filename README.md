@@ -1,3 +1,7 @@
+# PROJECT DISCONTINUED
+
+**So basically**, go [here](https://github.com/septor/pepperprintthis) instead. Same concept as this script, but it utilizes Isotope instead of relying on page bouncing.
+
 # Gallery
 
 Basically an image gallery. It pulls in every image inside `/images`, including subdirectories, and displays them.
